@@ -1,0 +1,43 @@
+project(mylib1)
+
+set(SOURCES 
+    mylib1.c
+    ${API_DIR}/mylib1.h
+)
+
+add_library(${PROJECT_NAME} ${SOURCES})
+
+target_include_directories(mylib1 PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${API_DIR}>)
+
+target_include_directories(mylib1 INTERFACE
+    $<INSTALL_INTERFACE:include>
+)
+
+install(FILES ${API_DIR}/mylib1.h
+    DESTINATION include
+)
+
+# If no type is given explicitly (STATIC or SHARED)
+# then the type is based on whether the current value of 
+# the variable BUILD_SHARED_LIBS is ON.
+
+set(EXPORT_NAME ${PROJECT_NAME}-export})
+
+install(TARGETS ${PROJECT_NAME}
+    EXPORT ${EXPORT_NAME}
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin
+)
+
+install(EXPORT ${EXPORT_NAME}
+    NAMESPACE ${NAMESPACE_NAME}
+    FILE ${PROJECT_NAME}-config.cmake
+    DESTINATION lib/export/${PROJECT_NAME}
+)
+
+export(EXPORT ${EXPORT_NAME}
+    NAMESPACE ${NAMESPACE_NAME}
+)
+
