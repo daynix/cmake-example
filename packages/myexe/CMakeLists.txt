@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(myexe)
 
-find_package(mylib1 REQUIRED)
-find_package(mylib2 REQUIRED)
+find_package(infra REQUIRED)
 
 add_executable(myexe main.c)
 

@@ -1,5 +1,5 @@
 BUILD_DIR=build
-PUBLIC_DIR=public
+EXPORT_DIR=export
 INSTALL_DIR=install
 
 function usage()
@@ -62,24 +62,25 @@ fi
 
 echo -e "\nGenerate infra\n"
 cmake -Hinfra -B${BUILD_DIR}/infra \
-    -DCMAKE_INSTALL_PREFIX=${BUILD_DIR}/${PUBLIC_DIR} \
+    -DCMAKE_INSTALL_PREFIX=${BUILD_DIR}/${EXPORT_DIR} \
     ${OPT_SHARED} \
     ${OPT_VERBOSE}
 
 # Build <tgt> instead of default targets
 echo -e "\nBuild install infra\n"
-cmake --build ${BUILD_DIR}/infra --target install
-    ${OPT_VERBOSE} -j
+cmake --build ${BUILD_DIR}/infra --target install \
+    -- -j
 
 # myexe
 
 echo -e "\nGenerate myexe\n"
 cmake -Hmyexe -B${BUILD_DIR}/myexe \
+    -DCMAKE_PREFIX_PATH=${PWD}/${BUILD_DIR}/${EXPORT_DIR} \
     -DCMAKE_INSTALL_PREFIX=${PWD}/${BUILD_DIR}/${INSTALL_DIR} \
-    -DCMAKE_PREFIX_PATH=${PWD}/${BUILD_DIR}/${PUBLIC_DIR}/lib/export
     ${OPT_SHARED} \
     ${OPT_VERBOSE}
 
 echo -e "\nBuild install myexe\n"
-cmake --build ${BUILD_DIR}/myexe --target install
-    ${OPT_VERBOSE} -j
+cmake --build ${BUILD_DIR}/myexe --target install \
+    -- -j
+

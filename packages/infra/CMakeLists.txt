@@ -37,7 +37,11 @@ endif ()
 
 
 set(API_DIR ext_api)
-set(NAMESPACE_NAME ${CMAKE_PROJECT_NAME}::)
+
+set(PACKAGE_NAME ${CMAKE_PROJECT_NAME})
+set(EXPORT_NAME ${PACKAGE_NAME}-export)
+set(NAMESPACE_NAME ${PACKAGE_NAME}::)
+set(EXPORT_FILE ${PACKAGE_NAME}-config.cmake)
 
 add_subdirectory(mylib1)
 add_subdirectory(mylib2)

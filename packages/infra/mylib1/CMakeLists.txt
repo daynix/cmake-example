@@ -22,8 +22,6 @@ install(FILES ${API_DIR}/mylib1.h
 # then the type is based on whether the current value of 
 # the variable BUILD_SHARED_LIBS is ON.
 
-set(EXPORT_NAME ${PROJECT_NAME}-export})
-
 install(TARGETS ${PROJECT_NAME}
     EXPORT ${EXPORT_NAME}
     ARCHIVE DESTINATION lib
@@ -33,11 +31,12 @@ install(TARGETS ${PROJECT_NAME}
 
 install(EXPORT ${EXPORT_NAME}
     NAMESPACE ${NAMESPACE_NAME}
-    FILE ${PROJECT_NAME}-config.cmake
-    DESTINATION lib/export/${PROJECT_NAME}
+    DESTINATION ${PACKAGE_NAME}
+    FILE ${EXPORT_FILE}
 )
 
 export(EXPORT ${EXPORT_NAME}
     NAMESPACE ${NAMESPACE_NAME}
+    #FILE ${EXPORT_FILE}
 )
 
