@@ -1,0 +1,10 @@
+define_lib(
+    mylib2
+    SOURCES
+        mylib2.cpp
+    #PRIV_HEADERS 
+    API_HEADERS 
+        mylib2.h
+    API_DIR
+        headers
+)
